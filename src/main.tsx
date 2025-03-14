@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router'
 import '@fontsource/poppins/index.css'
 import { ClerkProvider } from '@clerk/clerk-react'
+import { dark } from '@clerk/themes'
 
 import './index.css'
 import LandingPage from './LandingPage.tsx'
@@ -21,7 +22,12 @@ if (!PUBLISHABLE_KEY) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark, // could potentially cause problems - might need to uninstall @clerk/themes in case of packaging issues (doesn't officially support React 19 yet)
+      }}
+      publishableKey={PUBLISHABLE_KEY}
+    >
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<AppLayout />}>
