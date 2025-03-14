@@ -7,6 +7,7 @@ import './index.css'
 import LandingPage from './LandingPage.tsx'
 import AppLayout from './AppLayout.tsx'
 import NotFoundPage from './NotFoundPage.tsx'
+import LoginPage from './modules/login/LoginPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path='/' element={<AppLayout />}>
           <Route index element={<LandingPage />} />
 
-          <Route path='about' element={<h1>About</h1>} />
+          <Route path='login' index element={<LoginPage />} />
 
           <Route path='*' element={<NotFoundPage />} />
         </Route>
