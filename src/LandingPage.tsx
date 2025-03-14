@@ -9,10 +9,10 @@ export default function LandingPage() {
         <span className='text-2xl font-bold'>Pulse</span>
         <Button
           onClick={() => {
-            navigate('/login')
+            navigate('/sign-in')
           }}
         >
-          Login
+          Sign In
         </Button>
       </header>
       <main className='flex h-full flex-1 flex-col items-center justify-center'>

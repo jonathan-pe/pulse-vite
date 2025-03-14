@@ -8,8 +8,8 @@ import './index.css'
 import LandingPage from './LandingPage.tsx'
 import AppLayout from './AppLayout.tsx'
 import NotFoundPage from './NotFoundPage.tsx'
-import LoginPage from './modules/login/LoginPage.tsx'
-import SignUpPage from './modules/login/SignUpPage.tsx'
+import SignInPage from './modules/SignIn/SignInPage.tsx'
+import SignUpPage from './modules/SignIn/SignUpPage.tsx'
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -25,7 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path='/' element={<AppLayout />}>
             <Route index element={<LandingPage />} />
-            <Route path='login' index element={<LoginPage />} />
+            <Route path='sign-in' index element={<SignInPage />} />
             <Route path='sign-up' index element={<SignUpPage />} />
 
             <Route path='*' element={<NotFoundPage />} />
