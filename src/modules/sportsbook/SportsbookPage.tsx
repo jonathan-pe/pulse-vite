@@ -2,7 +2,7 @@ import withAuth from '@/utils/withAuth'
 
 const SportsbookPage = withAuth(() => {
   return (
-    <div className='flex min-h-screen justify-center'>
+    <div className='flex justify-center flex-1'>
       <div className='flex flex-1 flex-col gap-4 p-4'>
         <h2 className='text-2xl font-bold'>My Predictions</h2>
         <div className='grid auto-rows-min gap-4 md:grid-cols-3'>
@@ -10,7 +10,7 @@ const SportsbookPage = withAuth(() => {
           <div className='aspect-video rounded-xl bg-muted' />
           <div className='aspect-video rounded-xl bg-muted' />
         </div>
-        <div className='min-h-screen flex-1 rounded-xl bg-muted md:min-h-min' />
+        <div className='flex-1 rounded-xl bg-muted md:min-h-min' />
       </div>
     </div>
   )
