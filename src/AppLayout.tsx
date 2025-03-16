@@ -1,12 +1,14 @@
 import AppSidebar from '@/components/sidebar'
 import { Separator } from '@/components/ui/separator'
 import { SidebarTrigger } from '@/components/ui/sidebar'
-import { useAuth, UserButton } from '@clerk/clerk-react'
+import UserButton from '@/components/user-button'
+import { useUser } from '@clerk/clerk-react'
 import { Outlet } from 'react-router'
 import { Toaster } from 'sonner'
 
 const AppLayout = () => {
-  const { isSignedIn } = useAuth()
+  const { isSignedIn } = useUser()
+
   return (
     <div className='flex min-h-screen mx-auto w-full'>
       {isSignedIn && <AppSidebar />}
@@ -18,7 +20,6 @@ const AppLayout = () => {
               <Separator orientation='vertical' className='mr-2 h-4' />
               {/* <Breadcrumbs /> */}
             </div>
-            {/* <Cart /> */}
             <UserButton />
           </header>
         )}

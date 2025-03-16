@@ -14,6 +14,8 @@ import SignUpPage from './modules/SignIn/SignUpPage.tsx'
 import SportsbookPage from './modules/Sportsbook/SportsbookPage.tsx'
 import { SidebarProvider } from '@/components/ui/sidebar.tsx'
 import { ThemeProvider } from '@/components/theme-provider.tsx'
+import UserStatsPage from '@/modules/Stats/UserStatsPage.tsx'
+import AccountPage from '@/modules/Account/AccountPage.tsx'
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
@@ -41,6 +43,8 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='sign-up' index element={<SignUpPage />} />
 
                 <Route path='/sportsbook' element={<SportsbookPage />} />
+                <Route path='/account' element={<AccountPage />} />
+                <Route path='/stats' element={<UserStatsPage />} />
 
                 <Route path='*' element={<NotFoundPage />} />
               </Route>

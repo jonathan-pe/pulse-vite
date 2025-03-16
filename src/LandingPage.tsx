@@ -1,8 +1,17 @@
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@clerk/clerk-react'
 import { useNavigate } from 'react-router'
 
 export default function LandingPage() {
   const navigate = useNavigate()
+
+  const { isSignedIn } = useAuth()
+
+  if (isSignedIn) {
+    navigate('/sportsbook')
+    return
+  }
+
   return (
     <div className='mx-auto flex min-h-screen w-full flex-col p-4'>
       <header className='flex items-center justify-between'>
