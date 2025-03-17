@@ -24,7 +24,7 @@ const Breadcrumbs = () => {
 
       return (
         <React.Fragment key={href}>
-          <BreadcrumbItem>
+          <BreadcrumbItem className='capitalize'>
             {isLast ? (
               <BreadcrumbPage>{segment}</BreadcrumbPage>
             ) : (
