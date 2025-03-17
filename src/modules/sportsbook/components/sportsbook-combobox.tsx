@@ -1,52 +1,43 @@
 'use client'
 
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, ChevronsUpDown, LoaderCircle } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-// import { useStore } from '@/store'
 import { useState } from 'react'
 import { Sportsbook } from '@/types/sportsbook'
-// import { fetcher } from '@/lib/fetcher'
+import useSWR from 'swr'
+import { fetcher } from '@/utils/fetcher'
 
 export default function SportsbookComboBox() {
   const [open, setOpen] = useState(false)
   const [selectedSportsbook, setSportsbook] = useState(null)
 
-  // const { data } = useSWR<{ sportsbooks: Sportsbook[] }>(
-  //   `
-  //     {
-  //       sportsbooks {
-  //         id
-  //         name
-  //       }
-  //     }
-  //   `,
-  //   fetcher
-  // )
+  const { data, isLoading } = useSWR(
+    `query SportsbookQuery {
+        sportsbooks {
+          id
+          name
+        }
+      }
+    `,
+    fetcher
+  )
 
-  // const sportsbooks = data?.sportsbooks ?? []
+  if (isLoading) {
+    return <LoaderCircle className='animate-spin' />
+  }
 
-  const sportsbooks = [
-    {
-      id: '1',
-      name: 'DraftKings',
-    },
-    {
-      id: '2',
-      name: 'FanDuel',
-    },
-    {
-      id: '3',
-      name: 'BetMGM',
-    },
-  ]
+  // TODO: spice this up
+  if (!data) {
+    return <span>No sportsbooks found.</span>
+  }
 
-  // const selectedSportsbook = useAppStore((state) => state.sportsbook)
-  // const setSportsbook = useAppStore((state) => state.setSportsbook)
+  const { sportsbooks } = data as { sportsbooks: Sportsbook[] }
 
+  // TODO: convert from Popover to Dropdown (copy shadcn example)
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
