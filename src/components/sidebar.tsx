@@ -42,7 +42,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                           // setLeague(league)
                         }}
                       >
-                        <SidebarMenuButton>{league.league}</SidebarMenuButton>
+                        <SidebarMenuButton>{league.name}</SidebarMenuButton>
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>
