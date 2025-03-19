@@ -1,7 +1,6 @@
 'use client'
 
 import { Check, ChevronsUpDown, LoaderCircle } from 'lucide-react'
-
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
@@ -13,16 +12,15 @@ import { fetcher } from '@/utils/fetcher'
 
 export default function SportsbookComboBox() {
   const [open, setOpen] = useState(false)
-  const [selectedSportsbook, setSportsbook] = useState(null)
+  const [selectedSportsbook, setSportsbook] = useState<Sportsbook | null>(null)
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading } = useSWR<{ sportsbooks: Sportsbook[] }>(
     `query SportsbookQuery {
         sportsbooks {
           id
           name
         }
-      }
-    `,
+      }`,
     fetcher
   )
 
@@ -30,14 +28,12 @@ export default function SportsbookComboBox() {
     return <LoaderCircle className='animate-spin' />
   }
 
-  // TODO: spice this up
-  if (!data) {
+  if (!data || !data.sportsbooks) {
     return <span>No sportsbooks found.</span>
   }
 
-  const { sportsbooks } = data as { sportsbooks: Sportsbook[] }
+  const { sportsbooks } = data
 
-  // TODO: convert from Popover to Dropdown (copy shadcn example)
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -52,13 +48,13 @@ export default function SportsbookComboBox() {
           <CommandList>
             <CommandEmpty>No sportsbooks found.</CommandEmpty>
             <CommandGroup>
-              {sportsbooks?.map((sportsbook) => (
+              {sportsbooks.map((sportsbook) => (
                 <CommandItem
                   key={sportsbook.id}
                   value={sportsbook.id}
                   onSelect={(currentValue) => {
                     if (currentValue !== selectedSportsbook?.id) {
-                      setSportsbook(sportsbooks.find((sb: Sportsbook) => sb.id === currentValue) ?? null)
+                      setSportsbook(sportsbooks.find((sb) => sb.id === currentValue) ?? null)
                     }
                     setOpen(false)
                   }}

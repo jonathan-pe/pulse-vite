@@ -1,4 +1,4 @@
-import { GraphQLClient, RequestDocument } from 'graphql-request'
+import { GraphQLClient } from 'graphql-request'
 
 const client = new GraphQLClient(`${import.meta.env.VITE_BACKEND_URL!}/graphql`, {
   credentials: 'include',
@@ -7,9 +7,9 @@ const client = new GraphQLClient(`${import.meta.env.VITE_BACKEND_URL!}/graphql`,
   },
 })
 
-export const fetcher = async (query: RequestDocument, variables = {}) => {
+export const fetcher = async <T>(query: string, variables?: Record<string, never>): Promise<T> => {
   try {
-    const res = await client.request(query, variables)
+    const res = await client.request<T>(query, variables)
     return res
   } catch (err) {
     console.error(err)
