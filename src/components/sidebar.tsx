@@ -23,7 +23,7 @@ import { League } from '@/types/league'
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
 
-  const { data, isLoading } = useSWR(
+  const { data, isLoading } = useSWR<{ leagues: League[] }>(
     `query LeaguesQuery {
       leagues {
         id
@@ -38,7 +38,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
     return
   }
 
-  const { leagues } = data as { leagues: League[] }
+  const leagues = data?.leagues || []
 
   const sports = leagues?.reduce<string[]>((acc, curr) => {
     if (!acc.includes(curr.sport)) {
