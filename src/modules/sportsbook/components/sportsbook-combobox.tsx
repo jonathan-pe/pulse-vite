@@ -7,22 +7,23 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useState } from 'react'
 import { Sportsbook } from '@/types/sportsbook'
-import useSWR from 'swr'
-import { fetcher } from '@/utils/fetcher'
+import { useGraphQLQuery } from '@/hooks/useGraphQLQuery'
+import { gql } from 'graphql-request'
 
 export default function SportsbookComboBox() {
   const [open, setOpen] = useState(false)
   const [selectedSportsbook, setSportsbook] = useState<Sportsbook | null>(null)
 
-  const { data, isLoading } = useSWR<{ sportsbooks: Sportsbook[] }>(
-    `query SportsbookQuery {
+  const { data, isLoading } = useGraphQLQuery<{ sportsbooks: Sportsbook[] }>({
+    query: gql`
+      query SportsbookQuery {
         sportsbooks {
           id
           name
         }
-      }`,
-    fetcher
-  )
+      }
+    `,
+  })
 
   if (isLoading) {
     return <LoaderCircle className='animate-spin' />

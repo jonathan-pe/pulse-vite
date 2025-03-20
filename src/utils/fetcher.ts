@@ -7,12 +7,12 @@ const client = new GraphQLClient(`${import.meta.env.VITE_BACKEND_URL!}/graphql`,
   },
 })
 
-export const fetcher = async <T>(query: string, variables?: Record<string, never>): Promise<T> => {
+export const fetcher = async <T>(query: string, variables?: Record<string, unknown>): Promise<T> => {
   try {
-    const res = await client.request<T>(query, variables)
+    const res = await client.request<T>(query, variables || {})
     return res
   } catch (err) {
-    console.error(err)
+    console.error('GraphQL Request Error:', err)
     throw err
   }
 }

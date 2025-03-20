@@ -1,5 +1,3 @@
-import { User } from 'next-auth'
-
 export interface UserStats {
   correctPredictions: number
   createdAt: Date
@@ -9,7 +7,6 @@ export interface UserStats {
   points: number
   totalPredictions: number
   updatedAt: Date
-  user: User
   userId: string
 }
 

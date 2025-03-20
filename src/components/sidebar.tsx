@@ -1,8 +1,5 @@
 import * as React from 'react'
 import { ChevronDown, LoaderCircle } from 'lucide-react'
-import { fetcher } from '@/utils/fetcher'
-import useSWR from 'swr'
-
 import {
   Sidebar,
   SidebarContent,
@@ -19,20 +16,23 @@ import {
 import SportsbookComboBox from '@/modules/Sportsbook/components/sportsbook-combobox'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { League } from '@/types/league'
+import { useGraphQLQuery } from '@/hooks/useGraphQLQuery'
+import { gql } from 'graphql-request'
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
 
-  const { data, isLoading } = useSWR<{ leagues: League[] }>(
-    `query LeaguesQuery {
-      leagues {
-        id
-        name
-        sport
+  const { data, isLoading } = useGraphQLQuery<{ leagues: League[] }>({
+    query: gql`
+      query LeaguesQuery {
+        leagues {
+          id
+          name
+          sport
+        }
       }
-    }`,
-    fetcher
-  )
+    `,
+  })
 
   if (isLoading) {
     return
