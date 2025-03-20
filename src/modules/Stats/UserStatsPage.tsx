@@ -9,8 +9,8 @@ const UserStatsPage = withAuth(() => {
   const { user, isSignedIn, isLoaded } = useUser()
   const { data, isLoading, error } = useGraphQLQuery<{ userStatsByUserId: UserStats }>({
     query: gql`
-      query UserStatsQuery($id: String!) {
-        userStatsByUserId(id: $id) {
+      query UserStatsQuery($userId: String!) {
+        userStatsByUserId(userId: $userId) {
           points
           longestStreak
           currentStreak
@@ -19,7 +19,7 @@ const UserStatsPage = withAuth(() => {
         }
       }
     `,
-    variables: { id: user?.id },
+    variables: { userId: user?.id },
     shouldFetch: isLoaded && isSignedIn,
   })
 
