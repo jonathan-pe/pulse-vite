@@ -44,6 +44,7 @@ const UserStatsPage = withAuth(() => {
       <span>Current Streak: {currentStreak}</span>
       <span>Total Predictions: {totalPredictions}</span>
       <span>Correct Predictions: {correctPredictions}</span>
+      <span>Incorrect Predictions: {totalPredictions - correctPredictions}</span>
     </div>
   )
 })
